@@ -24,6 +24,11 @@ interface ChatInteraction {
     message: string
 }
 
+type Result = {
+    assitant: string
+    content: string
+}
+
 async function askQuestion(apiKey: string, userInput: string) {
     try {
             const response = await fetch('/api', {
@@ -37,7 +42,7 @@ async function askQuestion(apiKey: string, userInput: string) {
             if (response.ok) {
                 return (await response.json()) as {
                     success: boolean
-                    result?: { text: string }
+                    result?: Result
                 }
             }
 
@@ -76,11 +81,11 @@ export function Chat() {
         console.log(result)
         setProcessing(false)
 
-        if (result?.success && result.result) {
-            const answer = result.result.text
+        if (result?.success) {
+            const answer: Result = result.result!;
             setChatInteractions((previousInteractions) => [
                 ...previousInteractions,
-                { isBot: true, message: answer },
+                { isBot: true, message: answer.content },
             ])
             setQuestion("")
 
@@ -180,6 +185,7 @@ export function Chat() {
                         </Alert>
                     )}
                 </div>
+                <br />
                 <form
                     className="mt-2 flex flex-row gap-2"
                     onSubmit={async (e) => {

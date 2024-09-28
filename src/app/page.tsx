@@ -7,7 +7,7 @@ export default async function ChatGPTWithX() {
         <main className="min-h-screen flex flex-col items-center justify-center w-full h-full">
             <Header
                 heading="Hugging Face Experimentations"
-                subheading="Psychology ChatBot"
+                subheading="Chat with AI"
             />
             <Chat />
         </main>
