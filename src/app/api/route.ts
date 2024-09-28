@@ -17,30 +17,23 @@ export async function POST(req: NextRequest, res: NextResponse) {
         );
     }
 
-    let inference;
-    if (inference === undefined) {
-        inference = new HfInference(apiKey);
-    }
-    console.log(inference);
-    
     try {
-    const response = await inference.chatCompletion({
-        model: "mistralai/Mistral-7B-Instruct-v0.2",
-        messages: [
-            {
-            role: "user",
-            content: userInput,
+        const response = await fetch('https://api-inference.huggingface.co/models/mradermacher/TinyLlama-Friendly-Psychotherapist-v1.5-GGUF', {
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
             },
-        ],
-        max_tokens: 1000,
-    });
+            method: 'POST',
+            body: JSON.stringify({
+              inputs: userInput,
+            }),
+          });
+    
+        const data = response;
+        console.log(data);
 
-    const data = response;
-    console.log(data);
-
-    return NextResponse.json({
-        success: true,
-        result: data,
+        return NextResponse.json({
+            success: true,
+            result: data,
     })
 
     } catch (error) {
