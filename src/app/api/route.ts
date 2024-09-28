@@ -7,13 +7,22 @@ type ChatPrompt = {
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
-    const { apiKey, userInput } = req.body as unknown as ChatPrompt;
-    console.log(apiKey, userInput);
+    const body = await req.json();
+    const { apiKey, userInput } = body as ChatPrompt;
+    
+    if (!apiKey || !userInput) {
+        return NextResponse.json(
+            { success: false, message: "Missing apiKey or userInput" },
+            { status: 400 }
+        );
+    }
+
     let inference;
     if (inference === undefined) {
         inference = new HfInference(apiKey);
     }
     console.log(inference);
+    
     try {
     const response = await inference.chatCompletion({
         model: "mistralai/Mistral-7B-Instruct-v0.2",
