@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import {HfInference} from "@huggingface/inference"
+import { use } from "react"
 
 type ChatPrompt = {
     apiKey: string
@@ -9,6 +10,11 @@ type ChatPrompt = {
 export async function POST(req: NextRequest, res: NextResponse) {
     const body = await req.json();
     const { apiKey, userInput } = body as ChatPrompt;
+
+    let inference;
+    if (inference === undefined) {
+        inference = new HfInference(apiKey);
+    }
     
     if (!apiKey || !userInput) {
         return NextResponse.json(
@@ -18,17 +24,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     try {
-        const response = await fetch('https://api-inference.huggingface.co/models/mradermacher/TinyLlama-Friendly-Psychotherapist-v1.5-GGUF', {
-            headers: {
-              Authorization: `Bearer ${apiKey}`,
-            },
-            method: 'POST',
-            body: JSON.stringify({
-              inputs: userInput,
-            }),
+        const response = await inference.chatCompletion({
+            model: "mistralai/Mistral-7B-Instruct-v0.1",
+            messages: [{ role: "user", content: userInput }],
+            max_tokens: 100
           });
     
-        const data = response;
+        const data = response.choices[0].message;
         console.log(data);
 
         return NextResponse.json({
