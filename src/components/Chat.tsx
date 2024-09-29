@@ -125,8 +125,7 @@ export default function Chat() {
                     <SelectContent>
                         <SelectGroup>
                         <SelectItem value="mistralai/Mistral-7B-Instruct-v0.1">mistralai/Mistral-7B-Instruct-v0.1</SelectItem>
-                        <SelectItem value="nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis">nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis</SelectItem>
-                        </SelectGroup>
+                        <SelectItem value="nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis">nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis</SelectItem>                    </SelectGroup>
                     </SelectContent>
                     </Select>
                 </div>
