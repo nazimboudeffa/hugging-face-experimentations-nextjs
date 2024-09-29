@@ -17,7 +17,6 @@ import {
   } from "./ui/alert-dialog"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
-import { useParams } from 'next/navigation'
 
 interface ChatInteraction {
     isBot: boolean
