@@ -140,7 +140,7 @@ export function Chat() {
                                     type="text"
                                     id="apiKey"
                                     value={apiKey}
-                                    onChange={(e) => setApiKey(e.target.value)}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setApiKey(e.target.value)}
                                     placeholder="Enter your HF API key..."
                                 />
                             </p>
