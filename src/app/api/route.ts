@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
 import {HfInference} from "@huggingface/inference"
-import { text } from "stream/consumers"
 
 type ChatPrompt = {
     apiKey: string
