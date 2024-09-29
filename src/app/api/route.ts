@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import {HfInference} from "@huggingface/inference"
-import { use } from "react"
 
 type ChatPrompt = {
     apiKey: string
     userInput: string
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     const body = await req.json();
     const { apiKey, userInput } = body as ChatPrompt;
 
