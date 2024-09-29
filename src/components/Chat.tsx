@@ -57,7 +57,7 @@ async function askQuestion(apiKey: string, model: string, userInput: string) {
 
 export default function Chat() {
     const [apiKey, setApiKey] = useState<string>("")
-    const [model, setModel] = useState<string>("mistral")
+    const [model, setModel] = useState<string>("mistralai/Mistral-7B-Instruct-v0.1")
     const [processing, setProcessing] = useState(false)
     const [chatInteractions, setChatInteractions] = useState<ChatInteraction[]>(
         [
