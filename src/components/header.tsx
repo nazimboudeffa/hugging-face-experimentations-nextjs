@@ -1,11 +1,11 @@
-import { fontHeading } from "../lib/fonts"
+import { fontHeading } from "@/lib/fonts"
 
 type PageProps = {
     heading: string
     subheading: string | React.ReactNode
 }
 
-export function Header({ heading, subheading }: Readonly<PageProps>) {
+export default function Header({ heading, subheading }: Readonly<PageProps>) {
     return (
         <div className="flex max-w-[980px] flex-col items-center gap-2 mb-5">
             <h1

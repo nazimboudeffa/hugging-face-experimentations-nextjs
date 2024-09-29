@@ -1,15 +1,19 @@
-import { Header } from "./components/header"
-import { Chat } from "./components/Chat"
+import Header from "@/components/header"
+import Chat from "@/components/Chat"
+import NavBar from "@/components/NavBar"
 
-export default async function ChatGPTWithX() {
+export default async function ChatWithAI() {
 
     return (
-        <main className="min-h-screen flex flex-col items-center justify-center w-full h-full">
+        <>
+        <NavBar />
+        <main className="flex flex-col items-center justify-center w-full h-full">
             <Header
-                heading="Hugging Face Experimentations"
-                subheading="Chat with AI"
+                heading="Chat with AI"
+                subheading="Hugging Face Experimentations"
             />
             <Chat />
         </main>
+        </>
     )
 }

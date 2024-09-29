@@ -17,20 +17,29 @@ import {
   } from "./ui/alert-dialog"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
 
 interface ChatInteraction {
     isBot: boolean
     message: string
 }
 
-async function askQuestion(apiKey: string, userInput: string) {
+async function askQuestion(apiKey: string, model: string, userInput: string) {
     try {
             const response = await fetch('/api', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ apiKey, userInput }),
+              body: JSON.stringify({ apiKey, model, userInput }),
             });
 
             if (response.ok) {
@@ -47,8 +56,9 @@ async function askQuestion(apiKey: string, userInput: string) {
     }
 }
 
-export function Chat() {
+export default function Chat() {
     const [apiKey, setApiKey] = useState<string>("")
+    const [model, setModel] = useState<string>("mistral")
     const [processing, setProcessing] = useState(false)
     const [chatInteractions, setChatInteractions] = useState<ChatInteraction[]>(
         [
@@ -59,6 +69,10 @@ export function Chat() {
         ]
     )
     const [question, setQuestion] = useState<string>("")
+
+    const handleChange = (value: string) => {
+        setModel(value)
+    }
 
     const onAskQuestion = async () => {
         if (question.length == 0) {
@@ -71,7 +85,7 @@ export function Chat() {
         ])
 
         setProcessing(true)
-        const result = await askQuestion(apiKey, question)
+        const result = await askQuestion(apiKey, model, question)
         console.log(result)
         setProcessing(false)
 
@@ -102,9 +116,20 @@ export function Chat() {
         <div className="w-full md:w-8/12">
             <div className="flex flex-row justify-between">
                 <div>
-                    <p className="text-sm text-muted-foreground mt-3 ml-3">
-                        Actually working with Hugging Face
-                    </p>
+                    <Select
+                        value={model}
+                        onValueChange={handleChange}
+                    >
+                    <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select an AI model" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                        <SelectItem value="mistral">Mistral</SelectItem>
+                        <SelectItem value="llama">LLAMA</SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                    </Select>
                 </div>
                 <div className="flex flex-row">
                     <AlertDialog>
