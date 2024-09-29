@@ -124,8 +124,8 @@ export default function Chat() {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-                        <SelectItem value="mistral">Mistral</SelectItem>
-                        <SelectItem value="llama">LLAMA</SelectItem>
+                        <SelectItem value="mistralai/Mistral-7B-Instruct-v0.1">mistralai/Mistral-7B-Instruct-v0.1</SelectItem>
+                        <SelectItem value="nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis">nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                     </Select>

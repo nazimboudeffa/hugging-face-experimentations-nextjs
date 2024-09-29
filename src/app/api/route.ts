@@ -24,33 +24,55 @@ export async function POST(req: NextRequest) {
     }
 
     let aimodel;
-    if (model === "mistral") {
+    if (model === "mistralai/Mistral-7B-Instruct-v0.1") {
         aimodel = "mistralai/Mistral-7B-Instruct-v0.1"
-    } else if (model === "llama") {
-        aimodel = "meta-llama/Llama-3.1-70B-Instruct"
-    }
-
-    try {
-        const response = await inference.chatCompletion({
-            model: aimodel,
-            messages: [{ role: "user", content: userInput }],
-            max_tokens: 100
-          });
+        try {
+            const response = await inference.chatCompletion({
+                model: aimodel,
+                messages: [{ role: "user", content: userInput }],
+                max_tokens: 100
+              });
+        
+            const data = response.choices[0].message;
+            console.log(data);
     
-        const data = response.choices[0].message;
-        console.log(data);
-
-        return NextResponse.json({
-            success: true,
-            result: data.content,
-    })
-
-    } catch (error) {
-        console.log(error)
-
-        return NextResponse.json(
-            { success: false, message: "Internal application error" },
-            { status: 500 }
-        )
+            return NextResponse.json({
+                success: true,
+                result: data.content,
+        })
+    
+        } catch (error) {
+            console.log(error)
+    
+            return NextResponse.json(
+                { success: false, message: "Internal application error" },
+                { status: 500 }
+            )
+        }
+    } else if (model === "nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis") {
+        aimodel = "nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis"
+        try {
+            const response = await inference.textGeneration({
+                model: aimodel,
+                inputs: userInput,
+                max_tokens: 100
+              });
+        
+            const data = response.generated_text;
+            console.log(data);
+    
+            return NextResponse.json({
+                success: true,
+                result: data,
+        })
+    
+        } catch (error) {
+            console.log(error)
+    
+            return NextResponse.json(
+                { success: false, message: "Internal application error" },
+                { status: 500 }
+            )
+        }
     }
 }
