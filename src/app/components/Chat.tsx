@@ -24,11 +24,6 @@ interface ChatInteraction {
     message: string
 }
 
-type Result = {
-    assitant: string
-    content: string
-}
-
 async function askQuestion(apiKey: string, userInput: string) {
     try {
             const response = await fetch('/api', {
@@ -42,7 +37,7 @@ async function askQuestion(apiKey: string, userInput: string) {
             if (response.ok) {
                 return (await response.json()) as {
                     success: boolean
-                    result?: Result
+                    result?: string
                 }
             }
 
@@ -82,10 +77,10 @@ export function Chat() {
         setProcessing(false)
 
         if (result?.success) {
-            const answer: Result = result.result!;
+            const answer = result.result!;
             setChatInteractions((previousInteractions) => [
                 ...previousInteractions,
-                { isBot: true, message: answer.content },
+                { isBot: true, message: answer },
             ])
             setQuestion("")
 
