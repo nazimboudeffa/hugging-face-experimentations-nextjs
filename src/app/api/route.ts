@@ -19,13 +19,15 @@ async function handleInference(apiKey: string, model: string, userInput: string,
         
         // Choix de l'API selon le type de requête (chat ou génération de texte)
         if (type === "chat") {
+            console.log("Chat");
             response = await inference.chatCompletion({
                 model: model,
                 messages: [{ role: "user", content: userInput }],
                 max_tokens: 100
             });
+            console.log(response);
             data = response.choices[0].message.content;
-        } else {
+        } else if (type === "text") {
             response = await inference.textGeneration({
                 model: model,
                 inputs: userInput,
@@ -37,8 +39,8 @@ async function handleInference(apiKey: string, model: string, userInput: string,
         console.log(data);
 
         return NextResponse.json({
-            success: true,
-            result: data,
+            success: true, message: data,
+            status: 200
         });
     } catch (error) {
         console.error(`Error during inference for model ${model}:`, error);
@@ -66,9 +68,15 @@ export async function POST(req: NextRequest) {
     switch (model) {
         case "mistralai/Mistral-7B-Instruct-v0.1":
             type = "chat";  // Ce modèle utilise chatCompletion
+            console.log("Mistral");
+            break;
+        case "meta-llama/Llama-3.2-3B-Instruct":
+            type = "chat";  // Ce modèle utilise textGeneration
+            console.log("Llama");
             break;
         case "nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis":
             type = "text";  // Ce modèle utilise textGeneration
+            console.log("Freud");
             break;
         default:
             return NextResponse.json(

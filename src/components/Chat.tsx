@@ -44,7 +44,7 @@ async function askQuestion(apiKey: string, model: string, userInput: string) {
             if (response.ok) {
                 return (await response.json()) as {
                     success: boolean
-                    result?: string
+                    message?: string
                 }
             }
 
@@ -89,7 +89,7 @@ export default function Chat() {
         setProcessing(false)
 
         if (result?.success) {
-            const answer = result.result!;
+            const answer = result.message!;
             setChatInteractions((previousInteractions) => [
                 ...previousInteractions,
                 { isBot: true, message: answer },
@@ -125,6 +125,7 @@ export default function Chat() {
                     <SelectContent>
                         <SelectGroup>
                         <SelectItem value="mistralai/Mistral-7B-Instruct-v0.1">mistralai/Mistral-7B-Instruct-v0.1</SelectItem>
+                        <SelectItem value="meta-llama/Llama-3.2-3B-Instruct">meta-llama/Llama-3.2-3B-Instruct</SelectItem>
                         <SelectItem value="nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis">nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis</SelectItem>                    </SelectGroup>
                     </SelectContent>
                     </Select>
