@@ -28,6 +28,7 @@ async function handleInference(apiKey: string, model: string, userInput: string,
             console.log(response);
             data = response.choices[0].message.content;
         } else if (type === "text") {
+            console.log("Text");
             response = await inference.textGeneration({
                 model: model,
                 inputs: userInput,
