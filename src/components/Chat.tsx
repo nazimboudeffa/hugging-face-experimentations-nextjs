@@ -125,7 +125,7 @@ export default function Chat() {
                     <SelectContent>
                         <SelectGroup>
                         <SelectItem value="mistralai/Mistral-7B-Instruct-v0.1">mistralai/Mistral-7B-Instruct-v0.1</SelectItem>
-                        <SelectItem value="meta-llama/Llama-3.2-3B-Instruct">meta-llama/Llama-3.2-3B-Instruct</SelectItem>
+                        <SelectItem value="meta-llama/Llama-3.2-1B-Instruct">meta-llama/Llama-3.2-1B-Instruct</SelectItem>
                         <SelectItem value="nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis">nazimboudeffa/gpt-2-sigmund-freud-psychoanalysis</SelectItem>                    </SelectGroup>
                     </SelectContent>
                     </Select>

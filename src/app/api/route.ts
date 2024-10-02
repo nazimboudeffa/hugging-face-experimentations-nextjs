@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
             type = "chat";  // Ce modèle utilise chatCompletion
             console.log("Mistral");
             break;
-        case "meta-llama/Llama-3.2-3B-Instruct":
+        case "meta-llama/Llama-3.2-1B-Instruct":
             type = "chat";  // Ce modèle utilise textGeneration
             console.log("Llama");
             break;
